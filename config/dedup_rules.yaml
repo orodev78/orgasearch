@@ -1,0 +1,12 @@
+priority_keys:
+  - ror
+  - wikidata
+  - openalex
+  - hal
+  - isni
+  - grid
+
+merge_strategy:
+  labels: union
+  external_ids: union
+  fields: most_complete

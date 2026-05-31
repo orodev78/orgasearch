@@ -1,0 +1,21 @@
+{
+  "results": [
+    {
+      "id": "https://openalex.org/I1234567890",
+      "display_name": "University of Caen Normandy",
+      "type": "education",
+      "homepage_url": "https://www.unicaen.fr",
+      "geo": {
+        "city": "Caen",
+        "country_code": "FR",
+        "latitude": 49.18,
+        "longitude": -0.37
+      },
+      "ids": {
+        "openalex": "https://openalex.org/I1234567890",
+        "ror": "https://ror.org/03yrm5c26",
+        "wikidata": "https://www.wikidata.org/wiki/Q123456"
+      }
+    }
+  ]
+}

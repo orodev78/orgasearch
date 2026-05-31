@@ -1,0 +1,11 @@
+expansion:
+  enabled: true
+  max_lookups_per_request: 12
+  max_ids_per_key: 8
+  rules:
+    - id_key: ror
+      resolve_on_sources: [openalex, wikidata]
+    - id_key: wikidata
+      resolve_on_sources: [ror, openalex]
+    - id_key: openalex
+      resolve_on_sources: [ror, wikidata]

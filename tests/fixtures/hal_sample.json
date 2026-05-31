@@ -1,0 +1,15 @@
+{
+  "response": {
+    "docs": [
+      {
+        "docid": "129439",
+        "name_s": ["Laboratoire de recherche exemple"],
+        "label_s": ["Labo Exemple"],
+        "type_s": ["laboratory"],
+        "country_s": ["FR"],
+        "address_s": ["14000 Caen, France"],
+        "url_s": ["https://example.fr"]
+      }
+    ]
+  }
+}

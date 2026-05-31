@@ -1,0 +1,21 @@
+sources:
+  ror:
+    enabled: true
+    timeout_seconds: 5
+    default_per_source: 10
+    requires_env: []
+  wikidata:
+    enabled: true
+    timeout_seconds: 6
+    default_per_source: 10
+    requires_env: []
+  hal:
+    enabled: true
+    timeout_seconds: 5
+    default_per_source: 10
+    requires_env: []
+  openalex:
+    enabled: true
+    timeout_seconds: 5
+    default_per_source: 10
+    requires_env: [OPENALEX_API_KEY]

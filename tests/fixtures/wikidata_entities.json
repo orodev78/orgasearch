@@ -1,0 +1,18 @@
+{
+  "entities": {
+    "Q123456": {
+      "id": "Q123456",
+      "labels": {
+        "fr": {"language": "fr", "value": "Université de Caen Normandie"},
+        "en": {"language": "en", "value": "University of Caen Normandy"}
+      },
+      "claims": {
+        "P31": [{"mainsnak": {"datavalue": {"type": "wikibase-entityid", "value": {"id": "Q3918"}}}}],
+        "P856": [{"mainsnak": {"datavalue": {"type": "string", "value": "https://www.unicaen.fr"}}}],
+        "P625": [{"mainsnak": {"datavalue": {"type": "globecoordinate", "value": {"latitude": 49.18, "longitude": -0.37}}}}],
+        "P17": [{"mainsnak": {"datavalue": {"type": "wikibase-entityid", "value": {"id": "Q142"}}}}],
+        "P6782": [{"mainsnak": {"datavalue": {"type": "string", "value": "03yrm5c26"}}}]
+      }
+    }
+  }
+}

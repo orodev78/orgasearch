@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "id": "https://ror.org/03yrm5c26",
+      "names": [
+        {"lang": "fr", "value": "Université de Caen Normandie", "types": ["ror_display", "label"]},
+        {"lang": "en", "value": "University of Caen Normandy", "types": ["label"]}
+      ],
+      "types": ["education"],
+      "links": [{"type": "website", "value": "https://www.unicaen.fr"}],
+      "locations": [
+        {
+          "geonames_details": {
+            "name": "Caen",
+            "country_code": "FR",
+            "country_name": "France",
+            "lat": 49.18,
+            "lng": -0.37
+          }
+        }
+      ],
+      "external_ids": [
+        {"type": "wikidata", "preferred": "Q123456", "all": ["Q123456"]},
+        {"type": "isni", "preferred": "0000 0001 2345 6789", "all": ["0000 0001 2345 6789"]}
+      ]
+    }
+  ]
+}
