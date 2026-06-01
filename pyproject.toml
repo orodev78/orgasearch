@@ -1,6 +1,6 @@
 [project]
 name = "orgasearch"
-version = "1.0.0"
+version = "0.2.0"
 description = "Metasearch API for institutional partners (ROR, Wikidata, HAL, OpenAlex)"
 readme = "README.md"
 requires-python = ">=3.11"

@@ -27,6 +27,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 | `RATE_LIMIT_GLOBAL` | Default cap for all routes (default `120/minute`) |
 | `RATE_LIMIT_SEARCH` | Stricter cap for `/v1/partners/search` (default `30/minute`) |
 | `RATE_LIMIT_READ` | Cap for `/health` and `/v1/sources` (default `60/minute`) |
+| `CORS_ORIGINS` | Comma-separated browser origins for cross-origin requests (empty = CORS disabled) |
 | `SEARCH_MAX_QUERY_LENGTH` | Max characters for `q` (default `500`) |
 | `SEARCH_MAX_LANGS` | Max languages in `langs` (default `10`) |
 | `SEARCH_MAX_EXPANSIONS_DEFAULT` | Default phase-2 lookups (default `12`) |

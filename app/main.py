@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
@@ -12,6 +13,10 @@ from app.core.config import get_settings
 from app.core.http import close_http_client, get_http_client
 from app.models.partner import HealthResponse
 from app.sources.registry import get_registry
+
+
+def _parse_cors_origins(origins_csv: str) -> list[str]:
+    return [o.strip() for o in origins_csv.split(",") if o.strip()]
 
 
 @asynccontextmanager
@@ -38,6 +43,15 @@ def create_app() -> FastAPI:
     )
     app.state.limiter = limiter
     app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+    cors_origins = _parse_cors_origins(settings.cors_origins)
+    if cors_origins:
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=cors_origins,
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
 
     @app.get("/health", response_model=HealthResponse, tags=["health"])
     @limiter.limit(read_rate_limit)
