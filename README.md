@@ -90,3 +90,7 @@ See [docs/ADDING_SOURCE.md](docs/ADDING_SOURCE.md).
 - **Phase 1**: parallel text search on active sources
 - **Phase 2** (`expand=true`): lookup by `external_ids` per `config/id_expansion.yaml`
 - **Merge**: deduplicate by ROR / Wikidata / OpenAlex ids, union labels and external ids
+
+## License
+
+MIT — see [LICENSE](LICENSE). Copyright (c) 2026 orodev78.
