@@ -28,6 +28,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 | `RATE_LIMIT_SEARCH` | Stricter cap for `/v1/partners/search` (default `30/minute`) |
 | `RATE_LIMIT_READ` | Cap for `/health` and `/v1/sources` (default `60/minute`) |
 | `CORS_ORIGINS` | Comma-separated browser origins for cross-origin requests (empty = CORS disabled) |
+| `ROOT_PATH` | Public URL prefix behind a reverse proxy (e.g. `/orgasearch`; empty at root) |
 | `SEARCH_MAX_QUERY_LENGTH` | Max characters for `q` (default `500`) |
 | `SEARCH_MAX_LANGS` | Max languages in `langs` (default `10`) |
 | `SEARCH_MAX_EXPANSIONS_DEFAULT` | Default phase-2 lookups (default `12`) |
@@ -70,6 +71,8 @@ Enable `proxy` and `proxy_http`, then:
 ProxyPass /orgasearch http://127.0.0.1:8000
 ProxyPassReverse /orgasearch http://127.0.0.1:8000
 ```
+
+Set `ROOT_PATH=/orgasearch` in `.env` so redirects and Swagger work under the prefix.
 
 Run Orgasearch separately (`uvicorn` or Docker). WAMP stays as the front door.
 

@@ -29,6 +29,7 @@ async def lifespan(app: FastAPI):
 
 def create_app() -> FastAPI:
     settings = get_settings()
+    url_prefix = settings.root_path.rstrip("/")
     app = FastAPI(
         title=settings.app_name,
         version=settings.app_version,
@@ -37,6 +38,7 @@ def create_app() -> FastAPI:
             "HAL, and OpenAlex."
         ),
         lifespan=lifespan,
+        root_path=url_prefix,
         docs_url="/api/doc",
         redoc_url="/api/redoc",
         openapi_url="/api/openapi.json",
@@ -66,7 +68,9 @@ def create_app() -> FastAPI:
 
     @app.get("/", include_in_schema=False)
     async def root() -> RedirectResponse:
-        return RedirectResponse(url="/api/doc")
+        return RedirectResponse(
+            url=f"{url_prefix}/api/doc" if url_prefix else "/api/doc"
+        )
 
     app.include_router(search_router)
     app.include_router(sources_router)

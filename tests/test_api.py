@@ -66,3 +66,16 @@ async def test_cors_when_origins_configured(monkeypatch):
     get_settings.cache_clear()
     assert resp.status_code == 200
     assert resp.headers.get("access-control-allow-origin") == "http://localhost:3000"
+
+
+@pytest.mark.asyncio
+async def test_root_redirect_with_prefix(monkeypatch):
+    monkeypatch.setenv("ROOT_PATH", "/orgasearch")
+    get_settings.cache_clear()
+    prefixed_app = create_app()
+    transport = ASGITransport(app=prefixed_app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        resp = await ac.get("/", follow_redirects=False)
+    get_settings.cache_clear()
+    assert resp.status_code == 307
+    assert resp.headers["location"] == "/orgasearch/api/doc"

@@ -30,6 +30,7 @@ class Settings(BaseSettings):
     rate_limit_search: str = "30/minute"
     rate_limit_read: str = "60/minute"
     cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
+    root_path: str = ""
 
 
 @lru_cache
