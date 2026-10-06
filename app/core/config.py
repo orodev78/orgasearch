@@ -1,15 +1,26 @@
 from functools import lru_cache
 from pathlib import Path
 
+from dotenv import load_dotenv
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 CONFIG_DIR = ROOT_DIR / "config"
+ENV_FILE = ROOT_DIR / ".env"
+
+
+def load_env_file(*, override: bool = False) -> bool:
+    """Load `.env` into os.environ for dynamic source keys (e.g. LABRI_*)."""
+    return load_dotenv(ENV_FILE, override=override)
+
+
+# Ensure adapter env vars are visible before Settings/registry read them.
+load_env_file()
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=str(ENV_FILE),
         env_file_encoding="utf-8",
         extra="ignore",
     )

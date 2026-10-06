@@ -34,7 +34,7 @@ class Coordinates(BaseModel):
 class PartnerResult(BaseModel):
     """Unified partner record (JSON contract v1)."""
 
-    source: PartnerSourceId
+    source: str
     id: str
     external_ids: dict[str, str] = Field(default_factory=dict)
     labels: dict[str, str] = Field(default_factory=dict)

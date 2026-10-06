@@ -87,7 +87,7 @@ def _satisfied_lookups(results: list[PartnerResult]) -> set[tuple[str, str, str]
     """(target_source, id_key, normalized_value) already present in results."""
     out: set[tuple[str, str, str]] = set()
     for r in results:
-        src = r.source.value
+        src = r.source
         for key, value in (r.external_ids or {}).items():
             out.add((src, key, _normalize_value(key, value)))
         out.add((src, src, r.id.lower()))

@@ -38,11 +38,11 @@ class ResultMerger:
         seen: set[tuple[str, str]] = set()
         out: list[PartnerResult] = []
         for r in results:
-            key = (r.source.value, r.id)
+            key = (r.source, r.id)
             if key in seen:
                 continue
             seen.add(key)
-            r.sources = [r.source.value]
+            r.sources = [r.source]
             out.append(r)
         return out
 
@@ -91,7 +91,7 @@ class ResultMerger:
                 norm = self._normalize_id(key, val)
                 if norm:
                     return f"{key}:{norm}"
-        return f"{r.source.value}:{r.id}"
+        return f"{r.source}:{r.id}"
 
     def _normalize_id(self, key: str, value: str) -> str:
         if key == "ror":
@@ -105,7 +105,7 @@ class ResultMerger:
 
     def _merge_group(self, group: list[PartnerResult]) -> PartnerResult:
         base = deepcopy(group[0])
-        source_ids = {g.source.value for g in group}
+        source_ids = {g.source for g in group}
         base.sources = sorted(source_ids)
 
         all_ext: dict[str, str] = {}

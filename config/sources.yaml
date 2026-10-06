@@ -19,3 +19,19 @@ sources:
     timeout_seconds: 5
     default_per_source: 10
     requires_env: [OPENALEX_API_KEY]
+  labrri-tours:
+    enabled: true
+    adapter: labri
+    display_name: "LaBRRI Tours"
+    timeout_seconds: 5
+    default_per_source: 10
+    base_url_env: LABRI_TOURS_API_URL
+    api_key_env: LABRI_TOURS_API_KEY
+  #labrri-orleans:
+    #enabled: true
+    #adapter: labri
+    #display_name: "LaBRRI Orléans"
+    #timeout_seconds: 5
+    #default_per_source: 10
+    #base_url_env: LABRI_ORLEANS_API_URL
+    #api_key_env: LABRI_ORLEANS_API_KEY

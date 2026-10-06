@@ -1,6 +1,6 @@
 [project]
 name = "orgasearch"
-version = "0.2.0"
+version = "0.3.0"
 description = "Metasearch API for institutional partners (ROR, Wikidata, HAL, OpenAlex)"
 readme = "README.md"
 license = { text = "MIT" }
@@ -11,6 +11,7 @@ dependencies = [
     "httpx>=0.27.0",
     "pydantic>=2.9.0",
     "pydantic-settings>=2.6.0",
+    "python-dotenv>=1.0.0",
     "pyyaml>=6.0.2",
     "cachetools>=5.5.0",
     "slowapi>=0.1.9",

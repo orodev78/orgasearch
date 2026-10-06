@@ -1,0 +1,27 @@
+{
+  "results": [
+    {
+      "id": "123",
+      "external_ids": {
+        "ror": "https://ror.org/03yrm5c26",
+        "hal": "300009"
+      },
+      "labels": {
+        "und": "Université de Tours"
+      },
+      "type": "education",
+      "type_source": "Université/Institution",
+      "website": "https://www.univ-tours.fr",
+      "city": "Tours",
+      "country": {
+        "code": "FR",
+        "name": "France"
+      },
+      "coordinates": {
+        "lat": 47.39,
+        "lon": 0.69
+      },
+      "source_url": null
+    }
+  ]
+}

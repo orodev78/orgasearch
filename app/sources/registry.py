@@ -2,16 +2,13 @@ from __future__ import annotations
 
 import importlib
 import logging
-from pathlib import Path
-from typing import TYPE_CHECKING
+import os
 
 import yaml
 
 from app.core.config import CONFIG_DIR, get_settings
+from app.sources.labri import build_labri_sources
 from app.sources.protocol import PartnerSource, SourceConfig
-
-if TYPE_CHECKING:
-    pass
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +30,15 @@ class SourceRegistry:
                 self._sources[source_id] = source
             except Exception:
                 logger.exception("Failed to load source %s", source_id)
+
+        for source in build_labri_sources(self._config):
+            if source.id in self._sources:
+                logger.warning(
+                    "Skipping labri source %s: id conflicts with an existing source",
+                    source.id,
+                )
+                continue
+            self._sources[source.id] = source
 
     def get(self, source_id: str) -> PartnerSource | None:
         return self._sources.get(source_id)
@@ -119,11 +125,23 @@ def _load_sources_yaml() -> dict[str, SourceConfig]:
         data = yaml.safe_load(f) or {}
     result: dict[str, SourceConfig] = {}
     for sid, raw in (data.get("sources") or {}).items():
+        requires_env = list(raw.get("requires_env") or [])
+        adapter = raw.get("adapter")
+        base_url_env = raw.get("base_url_env")
+        api_key_env = raw.get("api_key_env")
+        if adapter == "labri":
+            for env_key in (base_url_env, api_key_env):
+                if env_key and env_key not in requires_env:
+                    requires_env.append(env_key)
         result[sid] = SourceConfig(
             enabled=raw.get("enabled", True),
             timeout_seconds=float(raw.get("timeout_seconds", 5)),
             default_per_source=int(raw.get("default_per_source", 10)),
-            requires_env=list(raw.get("requires_env") or []),
+            requires_env=requires_env,
+            adapter=adapter,
+            display_name=raw.get("display_name"),
+            base_url_env=base_url_env,
+            api_key_env=api_key_env,
         )
     return result
 
@@ -137,6 +155,4 @@ def _env_present(key: str) -> bool:
     val = mapping.get(key)
     if val is not None:
         return bool(val.strip())
-    import os
-
     return bool(os.environ.get(key, "").strip())

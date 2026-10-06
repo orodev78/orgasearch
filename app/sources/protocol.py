@@ -25,6 +25,10 @@ class SourceConfig:
     timeout_seconds: float = 5.0
     default_per_source: int = 10
     requires_env: list[str] = field(default_factory=list)
+    adapter: str | None = None
+    display_name: str | None = None
+    base_url_env: str | None = None
+    api_key_env: str | None = None
 
 
 @runtime_checkable

@@ -112,7 +112,7 @@ class SearchOrchestrator:
 
         counts: dict[str, int] = {}
         for r in final_results:
-            src = r.source.value
+            src = r.source
             counts[src] = counts.get(src, 0) + 1
 
         duration_ms = int((time.perf_counter() - started) * 1000)
@@ -255,10 +255,10 @@ class SearchOrchestrator:
 
         counts: dict[str, int] = {}
         for r in final_results:
-            src = r.source.value
+            src = r.source
             counts[src] = counts.get(src, 0) + 1
 
-        sources_queried = sorted({source_id, *(r.source.value for r in final_results)})
+        sources_queried = sorted({source_id, *(r.source for r in final_results)})
         duration_ms = int((time.perf_counter() - started) * 1000)
         meta = SearchMeta(
             meta_query=False,

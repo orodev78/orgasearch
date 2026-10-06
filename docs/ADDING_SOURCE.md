@@ -2,7 +2,7 @@
 
 Orgasearch uses a plugin model: each source implements `PartnerSource` and is registered at startup.
 
-## Steps
+## Builtin sources (ROR, Wikidata, HAL, OpenAlex)
 
 ### 1. Create the adapter module
 
@@ -23,6 +23,8 @@ def get_source() -> MySource:
 ```
 
 Keep all JSON → `PartnerResult` mapping inside this module.
+
+`PartnerResult.source` is a free-form `str` (not a closed enum). Builtin constants remain in `PartnerSourceId` for convenience (`ror`, `wikidata`, `hal`, `openalex`).
 
 ### 2. Register in `config/sources.yaml`
 
@@ -59,3 +61,27 @@ If you introduce a new cross-source identifier, add it to `config/dedup_rules.ya
 - Add `tests/test_mapping_<id>.py` asserting field mapping
 
 No changes to `app/api/v1/search.py` or the orchestrator are required.
+
+## LaBRRI multi-instance adapter
+
+LaBRRI instances share one reusable adapter (`app/sources/labri.py`) and are declared in YAML with `adapter: labri`. Each entry becomes a distinct source id (e.g. `labri-tours`).
+
+```yaml
+sources:
+  labri-tours:
+    enabled: true
+    adapter: labri
+    display_name: "LaBRRI Tours"
+    timeout_seconds: 5
+    default_per_source: 10
+    base_url_env: LABRI_TOURS_API_URL
+    api_key_env: LABRI_TOURS_API_KEY
+```
+
+- `base_url_env` / `api_key_env` name the environment variables holding the API base URL and `X-Api-Key` secret.
+- Base URL must include the API prefix (e.g. `https://example.org/api`); the adapter calls `{base_url}/partners/search` and `{base_url}/partners/{id}`.
+- Keep instance ids short (≤ 32 chars recommended for downstream storage as external reference sources).
+- The registry loads every `adapter: labri` entry via `build_labri_sources()`. Availability requires both env vars to be non-empty.
+- Lookup accepts any source id present in the registry (not a hardcoded list).
+
+No new Python module is needed per LaBRRI instance — only YAML + env.

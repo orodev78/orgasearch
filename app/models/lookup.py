@@ -1,11 +1,7 @@
-import re
-
 from pydantic import BaseModel, Field, field_validator
 
 from app.core.config import get_settings
 from app.models.search import LANG_CODE_RE
-
-VALID_LOOKUP_SOURCES = frozenset({"ror", "wikidata", "hal", "openalex"})
 
 
 def parse_langs(v: str | list[str]) -> list[str]:
@@ -34,11 +30,10 @@ class LookupQuery(BaseModel):
     @field_validator("source")
     @classmethod
     def normalize_source(cls, v: str) -> str:
+        """Normalize source id; membership is validated against the registry."""
         sid = v.strip().lower()
-        if sid not in VALID_LOOKUP_SOURCES:
-            raise ValueError(
-                f"Unknown source: {sid!r}. Valid: {', '.join(sorted(VALID_LOOKUP_SOURCES))}"
-            )
+        if not sid:
+            raise ValueError("source must not be empty")
         return sid
 
     @field_validator("partner_id")
